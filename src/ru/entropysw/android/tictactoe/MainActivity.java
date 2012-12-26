@@ -17,13 +17,16 @@ import ru.entropysw.android.R;
  */
 public class MainActivity extends Activity {
     TableLayout game_table;
+    int currentSymbol;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_l);
+        currentSymbol = R.string.tic_symbol;
+
         game_table = (TableLayout)findViewById(R.id.main_table);
-        makeGameField(4);
+        makeGameField(3);
     }
 
     private void makeGameField(int num) {
@@ -34,8 +37,7 @@ public class MainActivity extends Activity {
         for(int trCount=0; trCount < num; trCount++) {
             TableRow tr = new TableRow(this);
             for(int tdCount=0;tdCount < num; tdCount++) {
-                Button btn = new Button(this);
-                btn.setText(tdCount%2 == 0 ? "X" : "O");
+                ImageButton btn = new ImageButton(this);
                 btn.setOnClickListener(getOnClickChange(btn));
                 tr.addView(btn, sqrSize, sqrSize);
             }
@@ -43,15 +45,27 @@ public class MainActivity extends Activity {
         }
     }
 
-    private View.OnClickListener getOnClickChange(final Button button)  {
+    private View.OnClickListener getOnClickChange(final ImageButton button)  {
         return new View.OnClickListener() {
             public void onClick(View v) {
-                CharSequence currentSymbol = button.getText();
-                CharSequence newSymbol = currentSymbol == "X" ? "O" : "X";
-                button.setText(newSymbol);
+                button.setImageResource(currentSymbol == R.string.tic_symbol ? R.drawable.cross_symbol : R.drawable.null_symbol);
+                button.setEnabled(false);
+                currentSymbol = currentSymbol == R.string.tic_symbol ? R.string.tac_symbol : R.string.tic_symbol;
 
+                Boolean hasEnabled = false;
+                for(int i=0;i<game_table.getChildCount();i++) {
+                    View childView = game_table.getChildAt(i);
+                    if(childView.isEnabled()) {
+                        hasEnabled = true;
+                        break;
+                    }
+                }
+
+                CharSequence text = "GameOver";
+                if(hasEnabled) {
+                    text = "You`ve got some more turns!";
+                }
                 Context context = getApplicationContext();
-                CharSequence text = "You click me! And now I`m "+newSymbol;
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
