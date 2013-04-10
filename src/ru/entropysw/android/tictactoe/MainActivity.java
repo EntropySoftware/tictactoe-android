@@ -7,6 +7,8 @@ import android.view.Display;
 import android.view.View;
 import android.widget.*;
 import ru.entropysw.android.R;
+import ru.entropysw.android.tictactoe.logic.GameField;
+import ru.entropysw.android.tictactoe.view.GameFieldView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,34 +18,24 @@ import ru.entropysw.android.R;
  * Основное activity. Пока работаем через него.
  */
 public class MainActivity extends Activity {
-    TableLayout gameTable;
-    int currentSymbol;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_l);
-        currentSymbol = R.string.tic_symbol;
 
-        gameTable = (TableLayout) findViewById(R.id.main_table);
         makeGameField(3);
     }
 
     private void makeGameField(int num) {
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int sqrSize = Math.round(width / num);
-
-        for (int trCount = 0; trCount < num; trCount++) {
-            TableRow tr = new TableRow(this);
-            for (int tdCount = 0; tdCount < num; tdCount++) {
-                ImageButton btn = new ImageButton(this);
-                btn.setOnClickListener(getOnClickChange(btn));
-                tr.addView(btn, sqrSize, sqrSize);
-            }
-            gameTable.addView(tr);
-        }
+        GameFieldView gfView = GameFieldView.getForActivity(this);
+        GameField gfModel = GameField.getIssue();
+        gfModel.init(num);
+        gfView.make(gfModel);
     }
+    /*
+    Просто, чтоб не забыть, как работать с тостами
+    В остальном этот функционал раскидан по классам
 
     private View.OnClickListener getOnClickChange(final ImageButton button) {
         return new View.OnClickListener() {
@@ -72,6 +64,6 @@ public class MainActivity extends Activity {
                 toast.show();
             }
         };
-    }
+    }    */
 
 }

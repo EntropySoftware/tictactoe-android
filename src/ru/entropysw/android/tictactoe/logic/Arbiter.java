@@ -39,7 +39,7 @@ public class Arbiter {
     }
 
     private boolean hasWinner() {
-        // todo: обращаться к логическому классу игрового поля (НЕ GameField), чтобы оно сообщало о победителе
+        // todo: обращаться к логическому классу игрового поля (НЕ GameFieldView), чтобы оно сообщало о победителе
         return false;
     }
 

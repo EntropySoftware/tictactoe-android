@@ -3,6 +3,7 @@ package ru.entropysw.android.tictactoe.view;
 import android.view.View;
 import android.widget.ImageButton;
 import ru.entropysw.android.tictactoe.logic.Arbiter;
+import ru.entropysw.android.tictactoe.logic.GameField;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,9 +16,18 @@ public class ButtonClicker implements View.OnClickListener {
 
     private ImageButton button;
     private Arbiter arbiter = Arbiter.get();
+    private GameField gfModel = GameField.getIssue();
 
-    ButtonClicker(ImageButton button) {
+    /**
+     * Координаты в матрице игрового поля
+     */
+    private int x = 0;
+    private int y = 0;
+
+    ButtonClicker(ImageButton button, int x, int y) {
         this.button = button;
+        this.x = x;
+        this.y = y;
     }
 
     public void onClick(View v) {
@@ -25,6 +35,7 @@ public class ButtonClicker implements View.OnClickListener {
         button.setEnabled(false);
 
         arbiter.endTurn();
+        gfModel.setValue(x, y, arbiter.getActivePlayer().getStatusNum());
     }
 
 }

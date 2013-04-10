@@ -5,6 +5,8 @@ import android.view.Display;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import ru.entropysw.android.R;
+import ru.entropysw.android.tictactoe.logic.GameField;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,24 +15,27 @@ import android.widget.TableRow;
  * Time: 19:19
  * Класс, отвечающий за формирование игрового поля
  */
-public class GameField {
+public class GameFieldView {
 
     private Activity activity;
     private TableLayout gameTable;
 
-    private GameField() {
+    private GameFieldView() {
         // синглтон
     }
 
-    private GameField(Activity activity) {
+    private GameFieldView(Activity activity) {
         this.activity = activity;
+        gameTable = (TableLayout) this.activity.findViewById(R.id.main_table);
     }
 
-    public static GameField getForActivity(Activity activity) {
-        return new GameField(activity);
+    public static GameFieldView getForActivity(Activity activity) {
+        return new GameFieldView(activity);
     }
 
-    public void make(int dimension) {
+    public void make(GameField gfModel) {
+        int dimension = gfModel.getDimension();
+
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int sqrSize = Math.round(width / dimension);
@@ -39,7 +44,7 @@ public class GameField {
             TableRow tr = new TableRow(activity);
             for (int tdCount = 0; tdCount < dimension; tdCount++) {
                 ImageButton btn = new ImageButton(activity);
-                btn.setOnClickListener(new ButtonClicker(btn));
+                btn.setOnClickListener(new ButtonClicker(btn, trCount, tdCount));
                 tr.addView(btn, sqrSize, sqrSize);
             }
             gameTable.addView(tr);
