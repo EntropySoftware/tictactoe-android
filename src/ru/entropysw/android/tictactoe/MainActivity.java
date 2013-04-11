@@ -28,10 +28,8 @@ public class MainActivity extends Activity {
     }
 
     private void makeGameField(int num) {
-        GameFieldView gfView = GameFieldView.getForActivity(this);
-        GameField gfModel = GameField.getIssue();
-        gfModel.init(num);
-        gfView.make(gfModel);
+        GameField.getIssue().init(num);
+        GameFieldView.getForActivity(this).make();
     }
     /*
     Просто, чтоб не забыть, как работать с тостами

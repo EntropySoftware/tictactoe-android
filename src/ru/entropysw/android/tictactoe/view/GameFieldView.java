@@ -19,6 +19,7 @@ public class GameFieldView {
 
     private Activity activity;
     private TableLayout gameTable;
+    private GameField gameField = GameField.getIssue();
 
     private GameFieldView() {
         // синглтон
@@ -33,8 +34,8 @@ public class GameFieldView {
         return new GameFieldView(activity);
     }
 
-    public void make(GameField gfModel) {
-        int dimension = gfModel.getDimension();
+    public void make() {
+        int dimension = gameField.getDimension();
 
         Display display = activity.getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
