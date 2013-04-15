@@ -40,11 +40,43 @@ public class Arbiter {
 
     private boolean hasWinner() {
         // todo: обращаться к логическому классу игрового поля (НЕ GameFieldView), чтобы оно сообщало о победителе
+        // проверяем строку, затем столбец, затем обе диагонали
+
         return false;
     }
 
     private void moveTurn() {
         activePlayer = (getActivePlayer() == Player.TIC_PLAYER) ? Player.TAC_PLAYER : Player.TIC_PLAYER;
+    }
+
+    /**
+     * Вычисляет сумму элементов массива
+     *
+     * @param line
+     * @return
+     */
+    private int sumLine(int[] line) {
+        int result = 0;
+        for(int i : line) {
+            result += line[i];
+        }
+
+        return result;
+    }
+
+    /**
+     * Вычисляет произведение элементов массива
+     *
+     * @param line
+     * @return
+     */
+    private int multiLine(int[] line) {
+        int result = 1;
+        for(int i : line) {
+            result *= line[i];
+        }
+
+        return result;
     }
 
 }

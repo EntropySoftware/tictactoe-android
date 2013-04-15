@@ -30,12 +30,19 @@ public class ButtonClicker implements View.OnClickListener {
         this.y = y;
     }
 
+    /**
+     * Обрабатывает клик по ячейке поля
+     *
+     * @param v
+     */
     public void onClick(View v) {
         button.setImageResource(arbiter.getActivePlayer().getPictureId());
         button.setEnabled(false);
 
         arbiter.endTurn();
         gfModel.setValue(x, y, arbiter.getActivePlayer().getStatusNum());
+        gfModel.setLastX(x);
+        gfModel.setLastY(y);
     }
 
 }

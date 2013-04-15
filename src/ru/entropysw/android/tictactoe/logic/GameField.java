@@ -13,6 +13,13 @@ public class GameField {
      * Размер поля
      */
     private int dimension;
+
+    /**
+     * Координаты последнего хода
+     */
+    private int lastX = 0;
+    private int lastY = 0;
+
     /**
      * Матрица игрового поля
      */
@@ -79,6 +86,42 @@ public class GameField {
                 this.data[trCount][tdCount] = 0;
             }
         }
+    }
+
+    /**
+     * Возвращает послежний X
+     *
+     * @return
+     */
+    public int getLastX() {
+        return lastX;
+    }
+
+    /**
+     * Возвращает последний Y
+     *
+     * @return
+     */
+    public int getLastY() {
+        return lastY;
+    }
+
+    /**
+     * Устанавливает последний X
+     *
+     * @param x
+     */
+    public void setLastX(int x) {
+        lastX = x;
+    }
+
+    /**
+     * Устанавливает последний Y
+     *
+     * @param y
+     */
+    public void setLastY(int y) {
+        lastY = y;
     }
 
 }
