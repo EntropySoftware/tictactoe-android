@@ -28,8 +28,6 @@ public class Arbiter {
         // todo: записывать состояние игрового поля в отдельный класс
         if (!hasWinner()) {
             moveTurn();
-        } else {
-
         }
         // todo: кричать MainActivity о том, что у нас победитель
         /*

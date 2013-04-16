@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import ru.entropysw.android.R;
 import ru.entropysw.android.tictactoe.logic.GameField;
+import ru.entropysw.android.tictactoe.logic.Out;
 import ru.entropysw.android.tictactoe.view.GameFieldView;
 
 /**
@@ -23,6 +24,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_l);
+
+        // инициируем месенджер
+        Out.get().setContext(getApplicationContext());
 
         makeGameField(3);
     }
