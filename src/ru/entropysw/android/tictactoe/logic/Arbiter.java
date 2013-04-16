@@ -10,6 +10,7 @@ package ru.entropysw.android.tictactoe.logic;
 public class Arbiter {
 
     private Player activePlayer = Player.TIC_PLAYER;
+    private Player winner;
 
     private Arbiter() {
         // синглтон
@@ -27,6 +28,8 @@ public class Arbiter {
         // todo: записывать состояние игрового поля в отдельный класс
         if (!hasWinner()) {
             moveTurn();
+        } else {
+
         }
         // todo: кричать MainActivity о том, что у нас победитель
         /*
@@ -41,12 +44,101 @@ public class Arbiter {
     private boolean hasWinner() {
         // todo: обращаться к логическому классу игрового поля (НЕ GameFieldView), чтобы оно сообщало о победителе
         // проверяем строку, затем столбец, затем обе диагонали
+        GameField gameField = GameField.getIssue();
+        int[][] data = gameField.getData();
+
+        // строка
+        int res = 0;
+        res = checkLine(data[gameField.getLastX()]);
+        if(res != 0) return setWinner(res);
+
+        // столбец
+        res = checkCol();
+        if(res != 0) return setWinner(res);
+
+        // диагонали
+        res = checkDiagonals();
+        if(res != 0) return setWinner(res);
 
         return false;
     }
 
+    private boolean setWinner(int num) {
+        winner = Player.TAC_PLAYER.getStatusNum() == num ? Player.TAC_PLAYER : Player.TIC_PLAYER;
+
+        return true;
+    }
+
     private void moveTurn() {
         activePlayer = (getActivePlayer() == Player.TIC_PLAYER) ? Player.TAC_PLAYER : Player.TIC_PLAYER;
+    }
+
+    /**
+     * Проверяет массив
+     *
+     * Принцип такой.
+     * - если произведение элементов массива равно 0, значит массив не заполнен и победителя нет
+     * - если сумма элементов равна длине массива, то победитель определяется в зависимости от знака
+     * Возвращает 0 - нет победителя, 1/-1 код победителя
+     *
+     *
+     *
+     * @param Line
+     * @return
+     */
+    private int checkLine(int[] Line) {
+        if(multiLine(Line) != 0) {
+            int sum = sumLine(Line);
+            if(sum == Line.length) {
+                return sum/Line.length;
+            } else {
+                return 0;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Проверяет колонку.
+     *
+     * Формирует массив данных и проверяет его через checkLine
+     *
+     * @return
+     */
+    private int checkCol() {
+        int[] col = new int[0];
+        for(int i = 0; i < GameField.getIssue().getDimension(); i++) {
+            col[i] = GameField.getIssue().getData()[GameField.getIssue().getLastX()][i];
+        }
+
+        return checkLine(col);
+    }
+
+    /**
+     * Проверяет диагонали
+     *
+     * Формирует данные из диагоналей и проверяет их через checkLine
+     *
+     * @return
+     */
+    private int checkDiagonals() {
+        int[][] diagonals = new int[0][0];
+        int dim = GameField.getIssue().getDimension();
+        // 1 диагональ
+        for (int i = 0; i < dim; i++) {
+            diagonals[0][i] = GameField.getIssue().getData()[i][i];
+        }
+        // 2 диагональ
+        for (int j = 0; j < dim; j++) {
+            diagonals[1][j] = GameField.getIssue().getData()[dim - j - 1][j];
+        }
+
+        int res = 0;
+        res = checkLine(diagonals[0]);
+        if(res == 0) res = checkLine(diagonals[1]);
+
+        return res;
     }
 
     /**
