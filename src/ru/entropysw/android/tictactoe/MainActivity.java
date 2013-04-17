@@ -1,14 +1,11 @@
 package ru.entropysw.android.tictactoe;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.View;
-import android.widget.*;
 import ru.entropysw.android.R;
+import ru.entropysw.android.tictactoe.data.Settings;
 import ru.entropysw.android.tictactoe.logic.GameField;
-import ru.entropysw.android.tictactoe.logic.Out;
+import ru.entropysw.android.tictactoe.view.Out;
 import ru.entropysw.android.tictactoe.view.GameFieldView;
 
 /**
@@ -16,7 +13,7 @@ import ru.entropysw.android.tictactoe.view.GameFieldView;
  * User: stille
  * Date: 18.12.12
  * Time: 12:02
- * Основное activity. Пока работаем через него.
+ * Основное activity.
  */
 public class MainActivity extends Activity {
 
@@ -28,7 +25,7 @@ public class MainActivity extends Activity {
         // инициируем месенджер
         Out.get().setContext(getApplicationContext());
 
-        makeGameField(3);
+        makeGameField(Settings.getDimension());
     }
 
     private void makeGameField(int num) {

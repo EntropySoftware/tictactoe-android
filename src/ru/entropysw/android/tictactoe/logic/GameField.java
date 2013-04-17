@@ -10,6 +10,11 @@ package ru.entropysw.android.tictactoe.logic;
 public class GameField {
 
     /**
+     * Флаг инициализации
+     */
+    private boolean initialized = false;
+
+    /**
      * Размер поля
      */
     private int dimension;
@@ -51,6 +56,10 @@ public class GameField {
      * @return
      */
     public int getDimension() {
+        if (!initialized) {
+            throw new IllegalStateException("Прежде, чем получать размеры, " +
+                    "игровое поле должно быть проинициализировано");
+        }
         return dimension;
     }
 
@@ -79,7 +88,15 @@ public class GameField {
      *
      */
     public void init(int num) {
-        if(num > 0) this.setDimension(num);
+        if (initialized) {
+            throw new IllegalStateException("Невозможно повторно инициализировать игровое поле");
+        }
+
+        if(num > 0) {
+            this.setDimension(num);
+        } else {
+            throw new IllegalArgumentException("Невозможно задать поле с неположительным размером");
+        }
 
         for(int trCount = 0; trCount < this.dimension; trCount++) {
             for(int tdCount = 0; tdCount < this.dimension; tdCount++) {

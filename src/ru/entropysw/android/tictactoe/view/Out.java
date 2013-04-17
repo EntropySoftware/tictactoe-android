@@ -1,4 +1,4 @@
-package ru.entropysw.android.tictactoe.logic;
+package ru.entropysw.android.tictactoe.view;
 
 import android.content.Context;
 import android.widget.Toast;
