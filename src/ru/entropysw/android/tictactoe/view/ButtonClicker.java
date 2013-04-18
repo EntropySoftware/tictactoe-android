@@ -39,10 +39,10 @@ public class ButtonClicker implements View.OnClickListener {
         button.setImageResource(arbiter.getActivePlayer().getPictureId());
         button.setEnabled(false);
 
-        arbiter.endTurn();
         gfModel.setValue(x, y, arbiter.getActivePlayer().getStatusNum());
         gfModel.setLastX(x);
         gfModel.setLastY(y);
+        arbiter.endTurn();
     }
 
 }

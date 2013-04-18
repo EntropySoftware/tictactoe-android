@@ -1,5 +1,7 @@
 package ru.entropysw.android.tictactoe.logic;
 
+import ru.entropysw.android.tictactoe.view.Out;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stille
@@ -28,8 +30,10 @@ public class Arbiter {
         // todo: записывать состояние игрового поля в отдельный класс
         if (!hasWinner()) {
             moveTurn();
+            Out.get().show(activePlayer.getName()+" player`s turn");
+        } else {
+            // todo: кричать MainActivity о том, что у нас победитель
         }
-        // todo: кричать MainActivity о том, что у нас победитель
         /*
         Вообще, можно сделать класс-мессенджер, который будет заниматься выводом всяких сообщений на экран.
         Определить в нём разные типы сообщений, выводить их по-разному. Сделать ему простой интерфейс, наподобие
