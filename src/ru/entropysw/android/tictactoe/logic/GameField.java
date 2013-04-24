@@ -93,16 +93,18 @@ public class GameField {
         }
 
         if(num > 0) {
-            this.setDimension(num);
+            setDimension(num);
         } else {
             throw new IllegalArgumentException("Невозможно задать поле с неположительным размером");
         }
 
         for(int trCount = 0; trCount < this.dimension; trCount++) {
-            for(int tdCount = 0; tdCount < this.dimension; tdCount++) {
-                this.data[trCount][tdCount] = 0;
+            for (int tdCount = 0; tdCount < this.dimension; tdCount++) {
+                data[trCount][tdCount] = 0;
             }
         }
+
+        this.initialized = true;
     }
 
     /**
