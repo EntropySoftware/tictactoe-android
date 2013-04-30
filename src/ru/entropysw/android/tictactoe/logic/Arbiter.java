@@ -46,7 +46,7 @@ public class Arbiter {
     private boolean hasWinner() {
         // todo: обращаться к логическому классу игрового поля (НЕ GameFieldView), чтобы оно сообщало о победителе
         // проверяем строку, затем столбец, затем обе диагонали
-        GameField gameField = GameField.getIssue();
+        GameField gameField = GameField.get();
         int[][] data = gameField.getData();
 
         // строка
@@ -110,8 +110,8 @@ public class Arbiter {
      */
     private int checkCol() {
         int[] col = new int[0];
-        for(int i = 0; i < GameField.getIssue().getDimension(); i++) {
-            col[i] = GameField.getIssue().getData()[GameField.getIssue().getLastX()][i];
+        for(int i = 0; i < GameField.get().getDimension(); i++) {
+            col[i] = GameField.get().getData()[GameField.get().getLastX()][i];
         }
 
         return checkLine(col);
@@ -126,14 +126,14 @@ public class Arbiter {
      */
     private int checkDiagonals() {
         int[][] diagonals = new int[0][0];
-        int dim = GameField.getIssue().getDimension();
+        int dim = GameField.get().getDimension();
         // 1 диагональ
         for (int i = 0; i < dim; i++) {
-            diagonals[0][i] = GameField.getIssue().getData()[i][i];
+            diagonals[0][i] = GameField.get().getData()[i][i];
         }
         // 2 диагональ
         for (int j = 0; j < dim; j++) {
-            diagonals[1][j] = GameField.getIssue().getData()[dim - j - 1][j];
+            diagonals[1][j] = GameField.get().getData()[dim - j - 1][j];
         }
 
         int res = 0;

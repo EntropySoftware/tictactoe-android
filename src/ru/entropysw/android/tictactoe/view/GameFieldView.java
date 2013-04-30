@@ -19,7 +19,9 @@ public class GameFieldView {
 
     private Activity activity;
     private TableLayout gameTable;
-    private GameField gameField = GameField.getIssue();
+    private GameField gameField = GameField.get();
+
+    private static GameFieldView instance;
 
     private GameFieldView() {
         // синглтон
@@ -31,7 +33,10 @@ public class GameFieldView {
     }
 
     public static GameFieldView getForActivity(Activity activity) {
-        return new GameFieldView(activity);
+        if (instance == null) {
+            instance = new GameFieldView(activity);
+        }
+        return instance;
     }
 
     public void make() {

@@ -1,5 +1,7 @@
 package ru.entropysw.android.tictactoe.logic;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Mikhail_Levanov
@@ -8,6 +10,8 @@ package ru.entropysw.android.tictactoe.logic;
  * Класс, хранящий в себе состояние игрового поля
  */
 public class GameField {
+
+    private static GameField instance;
 
     /**
      * Флаг инициализации
@@ -37,8 +41,11 @@ public class GameField {
         // синглтон
     }
 
-    public static GameField getIssue() {
-        return new GameField();
+    public static GameField get() {
+        if (instance == null) {
+            instance = new GameField();
+        }
+        return instance;
     }
 
     /**
@@ -98,6 +105,7 @@ public class GameField {
             throw new IllegalArgumentException("Невозможно задать поле с неположительным размером");
         }
 
+        data = new int[dimension][dimension];
         for(int trCount = 0; trCount < this.dimension; trCount++) {
             for (int tdCount = 0; tdCount < this.dimension; tdCount++) {
                 data[trCount][tdCount] = 0;

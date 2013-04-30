@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     }
 
     private void makeGameField(int num) {
-        GameField.getIssue().init(num);
+        GameField.get().init(num);
         GameFieldView.getForActivity(this).make();
     }
     /*

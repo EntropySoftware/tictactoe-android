@@ -16,7 +16,7 @@ public class ButtonClicker implements View.OnClickListener {
 
     private ImageButton button;
     private Arbiter arbiter = Arbiter.get();
-    private GameField gfModel = GameField.getIssue();
+    private GameField gfModel = GameField.get();
 
     /**
      * Координаты в матрице игрового поля
