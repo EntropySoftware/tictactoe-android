@@ -13,6 +13,8 @@ import android.widget.Toast;
 public class Out {
     private Context context;
 
+    private static Out instance;
+
     private Out() {
         // синглтон
     }
@@ -23,7 +25,10 @@ public class Out {
      * @return
      */
     public static Out get() {
-        return new Out();
+        if (instance == null) {
+            instance = new Out();
+        }
+        return instance;
     }
 
     /**

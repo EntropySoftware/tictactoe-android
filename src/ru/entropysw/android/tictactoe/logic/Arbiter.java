@@ -109,8 +109,9 @@ public class Arbiter {
      * @return
      */
     private int checkCol() {
-        int[] col = new int[0];
-        for(int i = 0; i < GameField.get().getDimension(); i++) {
+        int dim = GameField.get().getDimension();
+        int[] col = new int[dim];
+        for(int i = 0; i < dim; i++) {
             col[i] = GameField.get().getData()[GameField.get().getLastX()][i];
         }
 
@@ -125,8 +126,8 @@ public class Arbiter {
      * @return
      */
     private int checkDiagonals() {
-        int[][] diagonals = new int[0][0];
         int dim = GameField.get().getDimension();
+        int[][] diagonals = new int[dim][dim];
         // 1 диагональ
         for (int i = 0; i < dim; i++) {
             diagonals[0][i] = GameField.get().getData()[i][i];
