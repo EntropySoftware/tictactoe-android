@@ -11,6 +11,8 @@ import ru.entropysw.android.tictactoe.view.Out;
  */
 public class Arbiter {
 
+    private static Arbiter instance;
+
     private Player activePlayer = Player.TIC_PLAYER;
     private Player winner;
 
@@ -19,7 +21,10 @@ public class Arbiter {
     }
 
     public static Arbiter get() {
-        return new Arbiter();
+        if (instance == null) {
+            instance = new Arbiter();
+        }
+        return instance;
     }
 
     public Player getActivePlayer() {
@@ -30,8 +35,9 @@ public class Arbiter {
         // todo: записывать состояние игрового поля в отдельный класс
         if (!hasWinner()) {
             moveTurn();
-            Out.get().show(activePlayer.getName()+" player`s turn");
+            Out.get().show(activePlayer.getName() + " player`s turn");
         } else {
+            Out.get().show(activePlayer.getName() + " wins!");
             // todo: кричать MainActivity о том, что у нас победитель
         }
         /*
@@ -133,13 +139,14 @@ public class Arbiter {
             diagonals[0][i] = GameField.get().getData()[i][i];
         }
         // 2 диагональ
-        for (int j = 0; j < dim; j++) {
-            diagonals[1][j] = GameField.get().getData()[dim - j - 1][j];
+        for (int i = 0; i < dim; i++) {
+            diagonals[1][i] = GameField.get().getData()[dim - i - 1][i];
         }
 
-        int res = 0;
-        res = checkLine(diagonals[0]);
-        if(res == 0) res = checkLine(diagonals[1]);
+        int res = checkLine(diagonals[0]);
+        if(res == 0) {
+            res = checkLine(diagonals[1]);
+        }
 
         return res;
     }
@@ -153,7 +160,7 @@ public class Arbiter {
     private int sumLine(int[] line) {
         int result = 0;
         for(int i : line) {
-            result += line[i];
+            result += i;
         }
 
         return result;
@@ -168,7 +175,7 @@ public class Arbiter {
     private int multiLine(int[] line) {
         int result = 1;
         for(int i : line) {
-            result *= line[i];
+            result *= i;
         }
 
         return result;
